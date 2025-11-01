@@ -4,7 +4,7 @@
 - [x] Set up GitHub repository
 - [x] Install Node.js
 - [x] Create basic project structure
-- [ ] Complete requirements documentation
+- [x] Complete requirements documentation
 - [ ] Design database schema
 
 ## Week 2 (Nov 8-14)
