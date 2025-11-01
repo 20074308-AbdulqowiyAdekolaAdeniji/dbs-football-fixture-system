@@ -1,2 +1,36 @@
-# dbs-football-fixture-system
-DBS Football Fixture Management System - CA Project for B9IS123
+# DBS Football Fixture Management System
+
+**Student Name:** Abdulqowiy Adekola Adeniji  
+**Student Number:** 20074308  
+**Programme:** MSc Information Systems with Computing  
+**Module:** B9IS123 - Programming for Information Systems  
+**Lecturer:** Paul Laird  
+
+## Project Overview
+This is a fixture management system for the DBS Football Team, designed to streamline match scheduling, team coordination, and result tracking.
+
+## System Features (Planned)
+- Create, Read, Update, Delete (CRUD) fixtures
+- Manage team squad and player availability
+- Venue booking management
+- Match result recording
+- Integration with external APIs (Weather, Notifications)
+
+## Technology Stack
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Node.js, Express.js
+- **Database:** SQLite
+- **Version Control:** GitHub
+
+## Project Status
+🚀 **Week 1** - Initial setup and requirements gathering
+
+## Documentation
+Full requirements specification available in Google Docs: [Link will be added]
+
+---
+
+## Academic Declaration
+This assignment is my own work. Any external resources used have been properly attributed. I have followed the Generative AI guidelines (Level 4) as specified in the assignment brief.
+
+**Last Updated:** November 1, 2025
