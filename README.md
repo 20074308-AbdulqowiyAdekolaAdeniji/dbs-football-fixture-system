@@ -26,7 +26,7 @@ This is a fixture management system for the DBS Football Team, designed to strea
 🚀 **Week 1** - Initial setup and requirements gathering
 
 ## Documentation
-Full requirements specification available in Google Docs: [Link will be added]
+Full requirements specification available in Google Docs: https://docs.google.com/document/d/118S8r6Teu9A87EKdZkcFwhAulvkk9nqm--q4GVgw58o/edit?usp=sharing
 
 ---
 
