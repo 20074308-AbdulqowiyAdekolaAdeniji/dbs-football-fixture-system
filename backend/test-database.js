@@ -36,5 +36,18 @@ db.all('SELECT * FROM fixtures WHERE status = "scheduled"', [], (err, rows) => {
     });
 });
 
+// Query 3: Get matches in November only
+db.all('SELECT * FROM fixtures WHERE match_date LIKE "2025-11%"', [], (err, rows) => {
+    if (err) {
+        console.error('Error:', err.message);
+        return;
+    }
+    
+    console.log('\n--- November Fixtures ---');
+    rows.forEach((row) => {
+        console.log(`- ${row.opposition} on ${row.match_date}`);
+    });
+});
+
 // Close connection
 db.close();
