@@ -7,3 +7,9 @@ body {
 h1 {
     color: #003d7a;
 }
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
