@@ -17,7 +17,7 @@ This is a fixture management system for the DBS Football Team, designed to strea
 - Integration with external APIs (Weather, Notifications)
 
 ## Technology Stack
-- **Frontend:** HTML, CSS, JavaScript
+- **Frontend:** React.js (component-based UI, SPA)
 - **Backend:** Node.js, Express.js
 - **Database:** SQLite
 - **Version Control:** GitHub
