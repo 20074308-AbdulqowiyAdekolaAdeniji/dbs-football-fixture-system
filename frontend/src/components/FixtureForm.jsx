@@ -3,6 +3,7 @@ import { useState } from 'react';
 function FixtureForm() {
   // State to store the opposition team name
   const [opposition, setOpposition] = useState('');
+  const [matchDate, setMatchDate] = useState('');
 
   return (
     <div className="fixture-form">
@@ -16,6 +17,17 @@ function FixtureForm() {
             value={opposition}
             onChange={(e) => setOpposition(e.target.value)}
             placeholder="e.g., UCD, Trinity College"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="matchDate">Match Date:</label>
+          <input
+            type="date"
+            id="matchDate"
+            value={matchDate}
+            onChange={(e) => setMatchDate(e.target.value)}
             required
           />
         </div>
