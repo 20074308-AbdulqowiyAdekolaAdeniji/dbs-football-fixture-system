@@ -1,68 +1,178 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
 }
 
+/* App Container */
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Typography - Inspired by Sporting Lagos */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  color: #2B3E5C;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  padding: 20px 0;
+  border-bottom: 4px solid #F4D03F;
 }
 
-button {
+h2 {
+  color: #2B3E5C;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  color: #2B3E5C;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Cards - Like the fixture cards */
+.card {
+  background: white;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 25px;
+  transition: box-shadow 0.3s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons - Inspired by "GET TICKETS" style */
+button {
+  background-color: #2B3E5C;
+  color: white;
+  padding: 14px 32px;
+  border: 2px solid #2B3E5C;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: transparent;
+  color: #2B3E5C;
+  border-color: #2B3E5C;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Primary button variant */
+.btn-primary {
+  background-color: #F4D03F;
+  color: #2B3E5C;
+  border-color: #F4D03F;
+}
+
+.btn-primary:hover {
+  background-color: #2B3E5C;
+  color: white;
+  border-color: #2B3E5C;
+}
+
+/* Tables - Like the standings table */
+table {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table thead {
+  background-color: #2B3E5C;
+  color: white;
+}
+
+table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Highlight row - like the team's position */
+table tbody tr.highlight {
+  background-color: #2B3E5C;
+  color: white;
+  font-weight: 600;
+}
+
+/* Badge/Tag styling - like date badges */
+.badge {
+  display: inline-block;
+  background-color: #F4D03F;
+  color: #2B3E5C;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-navy {
+  background-color: #2B3E5C;
+  color: white;
+}
+
+/* Status badges */
+.status-scheduled {
+  background-color: #F4D03F;
+  color: #2B3E5C;
+}
+
+.status-completed {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-cancelled {
+  background-color: #f44336;
+  color: white;
 }
