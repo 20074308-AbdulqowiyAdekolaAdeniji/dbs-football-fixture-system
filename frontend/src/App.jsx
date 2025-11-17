@@ -1,8 +1,11 @@
+import Header from './components/Header';
+import FixtureForm from './components/FixtureForm';
+
 function App() {
   return (
     <div className="app">
-      <h1>DBS Football Fixture Management System</h1>
-      <p>React app is running!</p>
+      <Header />
+      <FixtureForm />
     </div>
   );
 }
