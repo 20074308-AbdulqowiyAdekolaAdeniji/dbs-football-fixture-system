@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './FixtureForm.css';
 
 function FixtureForm() {
   // State to store the opposition team name
