@@ -6,6 +6,7 @@ function FixtureForm() {
   const [opposition, setOpposition] = useState('');
   const [matchDate, setMatchDate] = useState('');
   const [matchTime, setMatchTime] = useState('');
+  const [venue, setVenue] = useState('');
 
   return (
     <div className="fixture-form">
@@ -41,6 +42,18 @@ function FixtureForm() {
             id="matchTime"
             value={matchTime}
             onChange={(e) => setMatchTime(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="venue">Venue:</label>
+          <input
+            type="text"
+            id="venue"
+            value={venue}
+            onChange={(e) => setVenue(e.target.value)}
+            placeholder="e.g., DBS Sports Ground, Belfield"
             required
           />
         </div>
