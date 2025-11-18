@@ -5,6 +5,7 @@ function FixtureForm() {
   // State to store the opposition team name
   const [opposition, setOpposition] = useState('');
   const [matchDate, setMatchDate] = useState('');
+  const [matchTime, setMatchTime] = useState('');
 
   return (
     <div className="fixture-form">
@@ -29,6 +30,17 @@ function FixtureForm() {
             id="matchDate"
             value={matchDate}
             onChange={(e) => setMatchDate(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="matchTime">Match Time:</label>
+          <input
+            type="time"
+            id="matchTime"
+            value={matchTime}
+            onChange={(e) => setMatchTime(e.target.value)}
             required
           />
         </div>
