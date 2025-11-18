@@ -7,6 +7,7 @@ function FixtureForm() {
   const [matchDate, setMatchDate] = useState('');
   const [matchTime, setMatchTime] = useState('');
   const [venue, setVenue] = useState('');
+  const [competitionType, setCompetitionType] = useState('League');
 
   return (
     <div className="fixture-form">
@@ -56,6 +57,19 @@ function FixtureForm() {
             placeholder="e.g., DBS Sports Ground, Belfield"
             required
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="competitionType">Competition Type:</label>
+          <select
+            id="competitionType"
+            value={competitionType}
+            onChange={(e) => setCompetitionType(e.target.value)}
+          >
+            <option value="League">League</option>
+            <option value="Cup">Cup</option>
+            <option value="Friendly">Friendly</option>
+          </select>
         </div>
       </form>
     </div>
