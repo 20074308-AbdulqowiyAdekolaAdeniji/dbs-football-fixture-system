@@ -8,6 +8,7 @@ function FixtureForm() {
   const [matchTime, setMatchTime] = useState('');
   const [venue, setVenue] = useState('');
   const [competitionType, setCompetitionType] = useState('League');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   //Function to handle submit
   const handleSubmit = (e) => {
@@ -20,17 +21,32 @@ function FixtureForm() {
       competitionType
     });
     
+    // Show success message
+    setShowSuccess(true);
+    
     // Clear form after submission
     setOpposition('');
     setMatchDate('');
     setMatchTime('');
     setVenue('');
     setCompetitionType('League');
+    
+    // Hide success message after 3 seconds
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
   };
 
   return (
     <div className="fixture-form">
       <h2>Add New Fixture</h2>
+      
+      {showSuccess && (
+        <div className="success-message">
+          ✅ Fixture created successfully!
+        </div>
+      )}
+      
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="opposition">Opposition Team:</label>
