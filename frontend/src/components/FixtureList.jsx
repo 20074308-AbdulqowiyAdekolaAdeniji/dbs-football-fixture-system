@@ -100,6 +100,10 @@ function FixtureList() {
           Friendly ({fixtures.filter(f => f.competition_type === 'Friendly').length})
         </button>
       </div>
+
+      <div className="fixture-summary">
+        <p>Showing <strong>{filteredFixtures.length}</strong> of <strong>{fixtures.length}</strong> fixtures</p>
+      </div>
       
       {filteredFixtures.length === 0 ? (
         <div className="empty-state">
