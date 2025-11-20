@@ -52,10 +52,59 @@ function FixtureList() {
     }
   ]);
 
-  return (
+   return (
     <div className="fixture-list">
       <h2>Upcoming Fixtures</h2>
-      <p>Total fixtures: {fixtures.length}</p>
+      
+      {fixtures.length === 0 ? (
+        <div className="empty-state">
+          <h3>No fixtures scheduled</h3>
+          <p>Create your first fixture using the form above!</p>
+        </div>
+      ) : (
+        <div className="fixtures-container">
+          {fixtures.map((fixture) => (
+            <div key={fixture.id} className="fixture-card">
+              <div className="fixture-header">
+                <h3 className="fixture-opposition">{fixture.opposition}</h3>
+                <span className="fixture-type">{fixture.competition_type}</span>
+              </div>
+
+              <div className="fixture-datetime">
+                <div className="fixture-date">
+                  📅 {new Date(fixture.match_date).toLocaleDateString('en-GB', {
+                    weekday: 'short',
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                  })}
+                </div>
+                <div className="fixture-time">
+                  🕐 {fixture.match_time}
+                </div>
+              </div>
+
+              <div className="fixture-details">
+                <div className="fixture-detail">
+                  <strong>Venue:</strong>
+                  <span>{fixture.venue}</span>
+                </div>
+                <div className="fixture-detail">
+                  <strong>Status:</strong>
+                  <span className={`status-badge status-${fixture.status}`}>
+                    {fixture.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="fixture-actions">
+                <button className="btn-edit">Edit</button>
+                <button className="btn-delete">Delete</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
