@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './FixtureList.css';
 
 function FixtureList() {
   // Hardcoded fixtures for now (will connect to API later)
