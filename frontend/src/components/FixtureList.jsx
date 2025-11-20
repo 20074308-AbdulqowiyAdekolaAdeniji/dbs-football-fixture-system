@@ -52,6 +52,11 @@ function FixtureList() {
     }
   ]);
 
+  const handleEdit = (fixture) => {
+    console.log('Edit fixture:', fixture);
+    alert(`Edit functionality coming soon!\n\nFixture: ${fixture.opposition}`);
+  };
+
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this fixture?')) {
       setFixtures(fixtures.filter(fixture => fixture.id !== id));
@@ -105,7 +110,13 @@ function FixtureList() {
               </div>
 
               <div className="fixture-actions">
-                <button className="btn-edit">Edit</button>
+                <button 
+                  className="btn-edit"
+                  onClick={() => handleEdit(fixture)}
+                >
+                  Edit
+                </button>
+                
                 <button 
                   className="btn-delete"
                   onClick={() => handleDelete(fixture.id)}
