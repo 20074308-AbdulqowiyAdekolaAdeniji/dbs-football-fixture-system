@@ -51,6 +51,7 @@ function FixtureList() {
       competition_type: 'Friendly'
     }
   ]);
+  const [filterType, setFilterType] = useState('All');
 
   const handleEdit = (fixture) => {
     console.log('Edit fixture:', fixture);
@@ -64,18 +65,50 @@ function FixtureList() {
     }
   };
 
+  // Filter fixtures based on competition type
+  const filteredFixtures = filterType === 'All' 
+    ? fixtures 
+    : fixtures.filter(f => f.competition_type === filterType);
+
    return (
     <div className="fixture-list">
       <h2>Upcoming Fixtures</h2>
       
-      {fixtures.length === 0 ? (
+      <div className="filter-buttons">
+        <button 
+          className={filterType === 'All' ? 'filter-btn active' : 'filter-btn'}
+          onClick={() => setFilterType('All')}
+        >
+          All ({fixtures.length})
+        </button>
+        <button 
+          className={filterType === 'League' ? 'filter-btn active' : 'filter-btn'}
+          onClick={() => setFilterType('League')}
+        >
+          League ({fixtures.filter(f => f.competition_type === 'League').length})
+        </button>
+        <button 
+          className={filterType === 'Cup' ? 'filter-btn active' : 'filter-btn'}
+          onClick={() => setFilterType('Cup')}
+        >
+          Cup ({fixtures.filter(f => f.competition_type === 'Cup').length})
+        </button>
+        <button 
+          className={filterType === 'Friendly' ? 'filter-btn active' : 'filter-btn'}
+          onClick={() => setFilterType('Friendly')}
+        >
+          Friendly ({fixtures.filter(f => f.competition_type === 'Friendly').length})
+        </button>
+      </div>
+      
+      {filteredFixtures.length === 0 ? (
         <div className="empty-state">
           <h3>No fixtures scheduled</h3>
           <p>Create your first fixture using the form above!</p>
         </div>
       ) : (
         <div className="fixtures-container">
-          {fixtures.map((fixture) => (
+          {filteredFixtures.map((fixture) => (
             <div key={fixture.id} className="fixture-card">
               <div className="fixture-header">
                 <h3 className="fixture-opposition">{fixture.opposition}</h3>
@@ -116,7 +149,7 @@ function FixtureList() {
                 >
                   Edit
                 </button>
-                
+
                 <button 
                   className="btn-delete"
                   onClick={() => handleDelete(fixture.id)}
