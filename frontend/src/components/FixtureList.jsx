@@ -52,6 +52,13 @@ function FixtureList() {
     }
   ]);
 
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this fixture?')) {
+      setFixtures(fixtures.filter(fixture => fixture.id !== id));
+      console.log(`Fixture ${id} deleted`);
+    }
+  };
+
    return (
     <div className="fixture-list">
       <h2>Upcoming Fixtures</h2>
@@ -99,7 +106,12 @@ function FixtureList() {
 
               <div className="fixture-actions">
                 <button className="btn-edit">Edit</button>
-                <button className="btn-delete">Delete</button>
+                <button 
+                  className="btn-delete"
+                  onClick={() => handleDelete(fixture.id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}
