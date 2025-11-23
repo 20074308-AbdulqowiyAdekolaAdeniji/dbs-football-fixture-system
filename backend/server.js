@@ -3,6 +3,7 @@
 
 const express = require('express');
 const cors = require('cors');
+const db = require('./db'); // Import database connection
 
 // Create Express app
 const app = express();
