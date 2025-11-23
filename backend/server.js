@@ -13,6 +13,12 @@ const PORT = 3000;
 app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON bodies
 
+// Import routes
+const fixtureRoutes = require('./routes/fixtures');
+
+// Use routes
+app.use('/api/fixtures', fixtureRoutes);
+
 // Test route
 app.get('/', (req, res) => {
   res.json({ 
