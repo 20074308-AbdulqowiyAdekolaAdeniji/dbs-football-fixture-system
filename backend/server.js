@@ -13,6 +13,12 @@ const PORT = 3000;
 app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON bodies
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
 // Import routes
 const fixtureRoutes = require('./routes/fixtures');
 
