@@ -43,9 +43,56 @@ const getFixtureById = (req, res) => {
   });
 };
 
-// Create new fixture (we'll implement this next session)
+// Create new fixture
 const createFixture = (req, res) => {
-  res.status(501).json({ message: 'Create fixture - coming soon!' });
+  const { opposition, match_date, match_time, venue, competition_type, notes } = req.body;
+  
+  // Validation
+  if (!opposition || !match_date || !match_time || !venue) {
+    return res.status(400).json({ 
+      error: 'Missing required fields',
+      required: ['opposition', 'match_date', 'match_time', 'venue']
+    });
+  }
+  
+  // SQL Insert statement
+  const sql = `INSERT INTO fixtures (opposition, match_date, match_time, venue, competition_type, notes, status) 
+               VALUES (?, ?, ?, ?, ?, ?, 'scheduled')`;
+  
+  const values = [
+    opposition, 
+    match_date, 
+    match_time, 
+    venue, 
+    competition_type || 'League',  // Default to League if not provided
+    notes || null
+  ];
+  
+  db.run(sql, values, function(err) {
+    if (err) {
+      console.error('Error creating fixture:', err.message);
+      return res.status(500).json({ 
+        error: 'Failed to create fixture',
+        details: err.message 
+      });
+    }
+    
+    // Return the newly created fixture
+    res.status(201).json({
+      success: true,
+      message: 'Fixture created successfully',
+      data: {
+        id: this.lastID,
+        opposition,
+        match_date,
+        match_time,
+        venue,
+        competition_type: competition_type || 'League',
+        notes,
+        status: 'scheduled'
+      }
+    });
+  });
 };
 
 // Update fixture (we'll implement this next session)
