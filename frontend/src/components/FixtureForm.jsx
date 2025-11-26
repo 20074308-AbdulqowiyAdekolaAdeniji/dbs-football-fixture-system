@@ -11,30 +11,55 @@ function FixtureForm() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   //Function to handle submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Fixture submitted!', {
+    
+    // Prepare data for API
+    const fixtureData = {
       opposition,
-      matchDate,
-      matchTime,
+      match_date: matchDate,
+      match_time: matchTime,
       venue,
-      competitionType
-    });
-    
-    // Show success message
-    setShowSuccess(true);
-    
-    // Clear form after submission
-    setOpposition('');
-    setMatchDate('');
-    setMatchTime('');
-    setVenue('');
-    setCompetitionType('League');
-    
-    // Hide success message after 3 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 3000);
+      competition_type: competitionType
+    };
+
+    try {
+      // Send POST request to backend API
+      const response = await fetch('http://localhost:3000/api/fixtures', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(fixtureData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Fixture created:', data);
+        
+        // Show success message
+        setShowSuccess(true);
+        
+        // Clear form
+        setOpposition('');
+        setMatchDate('');
+        setMatchTime('');
+        setVenue('');
+        setCompetitionType('League');
+        
+        // Hide success message after 3 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 3000);
+      } else {
+        console.error('Error:', data);
+        alert('Failed to create fixture: ' + (data.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      alert('Could not connect to server. Make sure backend is running!');
+    }
   };
 
   return (
