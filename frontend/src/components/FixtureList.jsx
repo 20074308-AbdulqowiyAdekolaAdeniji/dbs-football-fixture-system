@@ -34,8 +34,20 @@ function FixtureList() {
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this fixture?')) {
-      setFixtures(fixtures.filter(fixture => fixture.id !== id));
-      console.log(`Fixture ${id} deleted`);
+      // Send DELETE request to backend
+      fetch(`http://localhost:3000/api/fixtures/${id}`, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Delete response:', data);
+        
+        setFixtures(fixtures.filter(fixture => fixture.id !== id));
+      })
+      .catch(error => {
+        console.error('Error deleting fixture:', error);
+        alert('Failed to delete fixture. Please try again.');
+      });
     }
   };
 
