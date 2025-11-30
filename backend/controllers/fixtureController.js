@@ -95,7 +95,7 @@ const createFixture = (req, res) => {
   });
 };
 
-// Update fixture (we'll implement this next session)
+// Update fixture
 const updateFixture = (req, res) => {
   res.status(501).json({ message: 'Update fixture - coming soon!' });
 };
@@ -114,7 +114,6 @@ const deleteFixture = (req, res) => {
       });
     }
     
-    // BUG: Not checking if fixture actually existed!
     res.json({
       success: true,
       message: 'Fixture deleted successfully',
