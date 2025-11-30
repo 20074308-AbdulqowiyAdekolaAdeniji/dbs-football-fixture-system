@@ -100,9 +100,27 @@ const updateFixture = (req, res) => {
   res.status(501).json({ message: 'Update fixture - coming soon!' });
 };
 
-// Delete fixture (we'll implement this next session)
+// Delete fixture
 const deleteFixture = (req, res) => {
-  res.status(501).json({ message: 'Delete fixture - coming soon!' });
+  const { id } = req.params;
+  const sql = 'DELETE FROM fixtures WHERE id = ?';
+  
+  db.run(sql, [id], function(err) {
+    if (err) {
+      console.error('Error deleting fixture:', err.message);
+      return res.status(500).json({ 
+        error: 'Failed to delete fixture',
+        details: err.message 
+      });
+    }
+    
+    // BUG: Not checking if fixture actually existed!
+    res.json({
+      success: true,
+      message: 'Fixture deleted successfully',
+      id: parseInt(id)
+    });
+  });
 };
 
 // Export all controller functions
