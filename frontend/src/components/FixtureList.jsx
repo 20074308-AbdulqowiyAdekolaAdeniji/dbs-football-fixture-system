@@ -32,25 +32,31 @@ function FixtureList() {
     alert(`Edit functionality coming soon!\n\nFixture: ${fixture.opposition}`);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this fixture?')) {
-      // Send DELETE request to backend
-      fetch(`http://localhost:3000/api/fixtures/${id}`, {
+  const handleDelete = async (id) => {
+  if (window.confirm('Are you sure you want to delete this fixture?')) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/fixtures/${id}`, {
         method: 'DELETE'
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Delete response:', data);
-        
-        setFixtures(fixtures.filter(fixture => fixture.id !== id));
-      })
-      .catch(error => {
-        console.error('Error deleting fixture:', error);
-        alert('Failed to delete fixture. Please try again.');
       });
+      
+      const data = await response.json();
+      console.log('Delete response:', data);
+      
+      // Check if backend says it succeeded
+      if (data.success) {
+        // Only NOW remove from UI
+        setFixtures(fixtures.filter(fixture => fixture.id !== id));
+        console.log(`Fixture ${id} deleted successfully`);
+      } else {
+        // Backend said it failed
+        alert('Failed to delete fixture: ' + (data.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error deleting fixture:', error);
+      alert('Could not connect to server. Please check backend is running.');
     }
-  };
-
+  }
+};
   // Filter fixtures based on competition type
   const filteredFixtures = filterType === 'All' 
     ? fixtures 

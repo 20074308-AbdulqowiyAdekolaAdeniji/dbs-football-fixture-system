@@ -113,6 +113,14 @@ const deleteFixture = (req, res) => {
         details: err.message 
       });
     }
+
+    // Fixed this bug with Paul's help, using Gemini
+    if (this.changes === 0) {
+      return res.status(404).json({ 
+        error: 'Fixture not found',
+        id: parseInt(id)
+      });
+    }
     
     res.json({
       success: true,
