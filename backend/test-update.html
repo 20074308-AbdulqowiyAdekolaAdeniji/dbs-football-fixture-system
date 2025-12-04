@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PUT Endpoint</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input, select {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+        }
+        button {
+            background: #2B3E5C;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1a2837;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test PUT /api/fixtures/:id</h1>
+    
+    <form id="updateForm">
+        <label>Fixture ID:</label>
+        <input type="number" id="fixtureId" value="1" required>
+        
+        <label>Opposition:</label>
+        <input type="text" id="opposition" value="UCD Updated" required>
+        
+        <label>Date:</label>
+        <input type="date" id="matchDate" required>
+        
+        <label>Time:</label>
+        <input type="time" id="matchTime" value="20:00" required>
+        
+        <label>Venue:</label>
+        <input type="text" id="venue" value="Updated Venue" required>
+        
+        <label>Competition:</label>
+        <select id="competitionType">
+            <option value="League">League</option>
+            <option value="Cup">Cup</option>
+            <option value="Friendly">Friendly</option>
+        </select>
+        
+        <button type="submit">Update Fixture</button>
+    </form>
+    
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('fixtureId').value;
+            const updateData = {
+                opposition: document.getElementById('opposition').value,
+                match_date: document.getElementById('matchDate').value,
+                match_time: document.getElementById('matchTime').value,
+                venue: document.getElementById('venue').value,
+                competition_type: document.getElementById('competitionType').value
+            };
+
+            document.getElementById('result').innerHTML = 'Updating fixture...';
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/fixtures/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                });
+
+                const data = await response.json();
+                
+                document.getElementById('result').innerHTML = 
+                    'Status: ' + response.status + '\n\n' +
+                    'Response:\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
