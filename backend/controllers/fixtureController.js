@@ -97,7 +97,41 @@ const createFixture = (req, res) => {
 
 // Update fixture
 const updateFixture = (req, res) => {
-  res.status(501).json({ message: 'Update fixture - coming soon!' });
+  const { id } = req.params;
+  const { opposition, match_date, match_time, venue, competition_type, notes, status } = req.body;
+  
+  // SQL UPDATE statement
+  const sql = `UPDATE fixtures 
+               SET opposition = ?, match_date = ?, match_time = ?, venue = ?, 
+                   competition_type = ?, notes = ?, status = ?
+               WHERE id = ?`;
+  
+  const values = [opposition, match_date, match_time, venue, competition_type, notes, status, id];
+  
+  db.run(sql, values, function(err) {
+    if (err) {
+      console.error('Error updating fixture:', err.message);
+      return res.status(500).json({ 
+        error: 'Failed to update fixture',
+        details: err.message 
+      });
+    }
+    
+    // Check if fixture was found and updated
+    if (this.changes === 0) {
+      return res.status(404).json({ 
+        error: 'Fixture not found',
+        id: parseInt(id)
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Fixture updated successfully',
+      updated: this.changes,
+      id: parseInt(id)
+    });
+  });
 };
 
 // Delete fixture
