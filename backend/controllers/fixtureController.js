@@ -100,13 +100,30 @@ const updateFixture = (req, res) => {
   const { id } = req.params;
   const { opposition, match_date, match_time, venue, competition_type, notes, status } = req.body;
   
+  // Validation - require key fields
+  if (!opposition || !match_date || !match_time || !venue) {
+    return res.status(400).json({ 
+      error: 'Missing required fields',
+      required: ['opposition', 'match_date', 'match_time', 'venue']
+    });
+  }
+  
   // SQL UPDATE statement
   const sql = `UPDATE fixtures 
                SET opposition = ?, match_date = ?, match_time = ?, venue = ?, 
                    competition_type = ?, notes = ?, status = ?
                WHERE id = ?`;
   
-  const values = [opposition, match_date, match_time, venue, competition_type, notes, status, id];
+  const values = [
+    opposition, 
+    match_date, 
+    match_time, 
+    venue, 
+    competition_type || 'League',
+    notes || null,
+    status || 'scheduled',
+    id
+  ];
   
   db.run(sql, values, function(err) {
     if (err) {
@@ -120,16 +137,26 @@ const updateFixture = (req, res) => {
     // Check if fixture was found and updated
     if (this.changes === 0) {
       return res.status(404).json({ 
+        success: false,
         error: 'Fixture not found',
         id: parseInt(id)
       });
     }
     
+    // Return updated fixture data
     res.json({
       success: true,
       message: 'Fixture updated successfully',
-      updated: this.changes,
-      id: parseInt(id)
+      data: {
+        id: parseInt(id),
+        opposition,
+        match_date,
+        match_time,
+        venue,
+        competition_type: competition_type || 'League',
+        notes,
+        status: status || 'scheduled'
+      }
     });
   });
 };
