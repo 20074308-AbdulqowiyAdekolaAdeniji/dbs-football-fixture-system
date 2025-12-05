@@ -161,10 +161,6 @@ function FixtureForm() {
         <button type="submit" className="submit-btn">
           {editMode ? 'Update Fixture' : 'Create Fixture'}
         </button>
-
-        <button type="submit" className="submit-btn">
-          {editMode ? 'Update Fixture' : 'Create Fixture'}
-        </button>
         
         {editMode && (
           <button 
