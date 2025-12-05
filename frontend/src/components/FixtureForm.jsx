@@ -9,6 +9,10 @@ function FixtureForm() {
   const [venue, setVenue] = useState('');
   const [competitionType, setCompetitionType] = useState('League');
   const [showSuccess, setShowSuccess] = useState(false);
+  
+  // Edit mode state
+  const [editMode, setEditMode] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
   //Function to handle submit
   const handleSubmit = async (e) => {
