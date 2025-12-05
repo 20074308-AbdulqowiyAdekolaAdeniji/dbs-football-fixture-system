@@ -28,8 +28,10 @@ function FixtureList() {
   };
 
   const handleEdit = (fixture) => {
-    console.log('Edit fixture:', fixture);
-    alert(`Edit functionality coming soon!\n\nFixture: ${fixture.opposition}`);
+    // Call the global editFixture function in FixtureForm
+    if (window.editFixture) {
+      window.editFixture(fixture);
+    }
   };
 
   const handleDelete = async (id) => {
