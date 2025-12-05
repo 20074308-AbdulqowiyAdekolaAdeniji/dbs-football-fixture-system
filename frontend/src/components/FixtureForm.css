@@ -85,6 +85,22 @@
   border-color: #2B3E5C;
 }
 
+/* Cancel Button */
+.cancel-btn {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #f44336;
+  color: white;
+  border: 2px solid #f44336;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.cancel-btn:hover {
+  background-color: white;
+  color: #f44336;
+}
+
 /* Form Grid for better layout */
 .form-row {
   display: grid;
