@@ -213,6 +213,53 @@
   color: white;
 }
 
+/* Weather Info */
+.weather-info {
+  background: #e3f2fd;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.weather-alerts {
+  margin-top: 8px;
+}
+
+.alert {
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  font-size: 0.85rem;
+}
+
+.alert-warning {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+}
+
+.alert-info {
+  background: #d1ecf1;
+  border-left: 4px solid #17a2b8;
+}
+
+.btn-weather {
+  padding: 8px 16px;
+  background: #e3f2fd;
+  border: 2px solid #2196f3;
+  color: #1976d2;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.btn-weather:hover {
+  background: #2196f3;
+  color: white;
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;
