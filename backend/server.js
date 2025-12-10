@@ -1,6 +1,9 @@
 // DBS Football Fixture Management System
 // Backend API Server
 
+// Load environment variables
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const db = require('./db'); // Import database connection
