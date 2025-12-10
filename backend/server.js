@@ -24,9 +24,11 @@ app.use((req, res, next) => {
 
 // Import routes
 const fixtureRoutes = require('./routes/fixtures');
+const weatherRoutes = require('./routes/weather');
 
 // Use routes
 app.use('/api/fixtures', fixtureRoutes);
+app.use('/api/weather', weatherRoutes);
 
 // Test route
 app.get('/', (req, res) => {
