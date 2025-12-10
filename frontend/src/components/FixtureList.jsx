@@ -6,6 +6,7 @@ function FixtureList() {
   const [fixtures, setFixtures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterType, setFilterType] = useState('All');
+  const [weatherData, setWeatherData] = useState({});
 
   // Fetch fixtures from backend API when component loads
   useEffect(() => {
@@ -24,6 +25,26 @@ function FixtureList() {
     } catch (error) {
       console.error('Error fetching fixtures:', error);
       setLoading(false);
+    }
+  };
+
+   // Fetch weather for a venue
+  const fetchWeather = async (venue, fixtureId) => {
+    try {
+      // Extract city from venue (simple approach)
+      const location = venue.split(' ')[0]; // i.e. "Belfield Sports Ground" → "Belfield"
+      
+      const response = await fetch(`http://localhost:3000/api/weather?location=${location}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setWeatherData(prev => ({
+          ...prev,
+          [fixtureId]: data
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching weather:', error);
     }
   };
 
@@ -141,6 +162,33 @@ function FixtureList() {
                   <strong>Venue:</strong>
                   <span>{fixture.venue}</span>
                 </div>
+
+                {/* Weather Info */}
+                {weatherData[fixture.id] ? (
+                  <div className="weather-info">
+                    <strong>Weather:</strong>
+                    <span>
+                      {weatherData[fixture.id].weather.temperature}°C - {weatherData[fixture.id].weather.description}
+                      {weatherData[fixture.id].alerts.length > 0 && (
+                        <div className="weather-alerts">
+                          {weatherData[fixture.id].alerts.map((alert, idx) => (
+                            <div key={idx} className={`alert alert-${alert.type}`}>
+                              {alert.message}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </span>
+                  </div>
+                ) : (
+                  <button 
+                    className="btn-weather"
+                    onClick={() => fetchWeather(fixture.venue, fixture.id)}
+                  >
+                    🌤️ Check Weather
+                  </button>
+                )}
+
                 <div className="fixture-detail">
                   <strong>Status:</strong>
                   <span className={`status-badge status-${fixture.status}`}>
