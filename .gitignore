@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 # Database files
 *.db
+
+.env
