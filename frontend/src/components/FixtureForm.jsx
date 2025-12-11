@@ -41,9 +41,11 @@ function FixtureForm() {
     };
 
     try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
       const url = editMode 
-        ? `http://localhost:3000/api/fixtures/${editingId}`
-        : 'http://localhost:3000/api/fixtures';
+        ? `${API_URL}/api/fixtures/${editingId}`
+        : `${API_URL}/api/fixtures`;
       
       const method = editMode ? 'PUT' : 'POST';
       

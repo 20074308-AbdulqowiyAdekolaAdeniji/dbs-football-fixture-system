@@ -15,7 +15,8 @@ function FixtureList() {
 
   const fetchFixtures = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/fixtures');
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${API_URL}/api/fixtures`);
       const data = await response.json();
       
       if (data.success) {
@@ -34,7 +35,7 @@ function FixtureList() {
       // Extract city from venue (simple approach)
       const location = venue.split(' ')[0]; // i.e. "Belfield Sports Ground" → "Belfield"
       
-      const response = await fetch(`http://localhost:3000/api/weather?location=${location}`);
+      const response = await fetch(`${API_URL}/api/weather?location=${location}`);
       const data = await response.json();
       
       if (data.success) {
@@ -58,7 +59,7 @@ function FixtureList() {
   const handleDelete = async (id) => {
   if (window.confirm('Are you sure you want to delete this fixture?')) {
     try {
-      const response = await fetch(`http://localhost:3000/api/fixtures/${id}`, {
+      const response = await fetch(`${API_URL}/api/fixtures/${id}`, {
         method: 'DELETE'
       });
       
