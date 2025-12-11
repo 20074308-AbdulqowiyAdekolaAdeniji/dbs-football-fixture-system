@@ -10,7 +10,7 @@ const db = require('./db'); // Import database connection
 
 // Create Express app
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;  // Made it dynamic
 
 // Middleware
 app.use(cors()); // Allow frontend to connect
