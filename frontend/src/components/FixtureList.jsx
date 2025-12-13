@@ -8,14 +8,28 @@ function FixtureList() {
   const [filterType, setFilterType] = useState('All');
   const [weatherData, setWeatherData] = useState({});
 
+   // Define API_URL once for the whole component
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
   // Fetch fixtures from backend API when component loads
   useEffect(() => {
     fetchFixtures();
+
+    // Listen for fixture updates
+    const handleFixtureUpdate = () => {
+      fetchFixtures();
+    };
+    
+    window.addEventListener('fixtureUpdated', handleFixtureUpdate);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('fixtureUpdated', handleFixtureUpdate);
+    };
   }, []);
 
   const fetchFixtures = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
       const response = await fetch(`${API_URL}/api/fixtures`);
       const data = await response.json();
       
@@ -57,30 +71,28 @@ function FixtureList() {
   };
 
   const handleDelete = async (id) => {
-  if (window.confirm('Are you sure you want to delete this fixture?')) {
-    try {
-      const response = await fetch(`${API_URL}/api/fixtures/${id}`, {
-        method: 'DELETE'
-      });
-      
-      const data = await response.json();
-      console.log('Delete response:', data);
-      
-      // Check if backend says it succeeded
-      if (data.success) {
-        // Only NOW remove from UI
-        setFixtures(fixtures.filter(fixture => fixture.id !== id));
-        console.log(`Fixture ${id} deleted successfully`);
-      } else {
-        // Backend said it failed
-        alert('Failed to delete fixture: ' + (data.error || 'Unknown error'));
+    if (window.confirm('Are you sure you want to delete this fixture?')) {
+      try {
+        const response = await fetch(`${API_URL}/api/fixtures/${id}`, {
+          method: 'DELETE'
+        });
+        
+        const data = await response.json();
+        console.log('Delete response:', data);
+        
+        if (data.success) {
+          // Remove from UI
+          setFixtures(fixtures.filter(fixture => fixture.id !== id));
+          console.log(`Fixture ${id} deleted successfully`);
+        } else {
+          alert('Failed to delete: ' + (data.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error deleting fixture:', error);
+        alert('Could not connect to server. Please check backend is running.');
       }
-    } catch (error) {
-      console.error('Error deleting fixture:', error);
-      alert('Could not connect to server. Please check backend is running.');
     }
-  }
-};
+  };
   // Filter fixtures based on competition type
   const filteredFixtures = filterType === 'All' 
     ? fixtures 

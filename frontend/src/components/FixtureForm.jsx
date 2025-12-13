@@ -72,11 +72,9 @@ function FixtureForm() {
         setCompetitionType('League');
         setEditMode(false);
         setEditingId(null);
-        
-        // Reload page to refresh list
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+
+         // Trigger fixture list refresh via custom event
+        window.dispatchEvent(new CustomEvent('fixtureUpdated'));
         
         setTimeout(() => {
           setShowSuccess(false);
