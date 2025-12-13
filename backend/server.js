@@ -7,6 +7,46 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const db = require('./db'); // Import database connection
+const fs = require('fs');
+
+// Auto-initialize database if empty (for deployment)
+db.get('SELECT COUNT(*) as count FROM fixtures', [], (err, row) => {
+  if (err || row.count === 0) {
+    console.log('📊 Database is empty, initializing with sample data...');
+    
+    // Read and execute schema
+    const schema = fs.readFileSync('./database-schema.sql', 'utf8');
+    db.exec(schema, (err) => {
+      if (err) {
+        console.error('Error creating tables:', err);
+      } else {
+        console.log('✅ Tables created');
+        
+        // Insert sample data
+        const sampleFixtures = [
+          ['UCD', '2025-11-15', '19:00', 'Belfield Sports Ground', null, null, 'scheduled', 'League', 'Opening match'],
+          ['Trinity College', '2025-11-22', '15:00', 'College Park', null, null, 'scheduled', 'League', null],
+          ['DCU', '2025-11-29', '19:30', 'DCU Sports Complex', null, null, 'scheduled', 'Cup', 'Quarter final'],
+          ['IT Tallaght', '2025-12-06', '18:00', 'DBS Sports Ground', null, null, 'scheduled', 'League', null],
+          ['Maynooth University', '2025-12-13', '14:00', 'Maynooth Campus', null, null, 'scheduled', 'Friendly', null]
+        ];
+
+        const insertSQL = `INSERT INTO fixtures (opposition, match_date, match_time, venue, home_score, away_score, status, competition_type, notes) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        sampleFixtures.forEach((fixture) => {
+          db.run(insertSQL, fixture, (err) => {
+            if (err) console.error('Error inserting:', err);
+          });
+        });
+        
+        console.log('✅ Sample data loaded');
+      }
+    });
+  } else {
+    console.log('✅ Database already initialized with', row.count, 'fixtures');
+  }
+});
 
 // Create Express app
 const app = express();
